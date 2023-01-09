@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: ./docker/app/Dockerfile
+
+    volumes:
+      - ./src/:/app
+
+  db:
+    build:
+      context: ./
+      dockerfile: ./docker/db/Dockerfile
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: testDB
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: test
+      TZ: "Asia/Tokyo"
+    volumes:
+      - mysql-volume:/var/lib/mysql
+
+volumes:
+  mysql-volume:
